@@ -1,2 +1,1 @@
-# ReactJS-Movie-Search
-A movie search application with ReactJS library
+# Project is in progress
