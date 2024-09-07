@@ -72,13 +72,23 @@ export default function Movies() {
                 ))}  
             </div>   
             {movies.length > 0 && (  
-                <div className="flex justify-center">  
-                    <button 
-                        className='bg-blue-500 hover:bg-blue-400 text-white p-2 rounded mr-2' 
-                        onClick={handlePreviousPage}
-                    >
-                    Previous
-                    </button>  
+                <div className="flex justify-center">
+                    {pageCount === 1 
+                    ?
+                        <button 
+                            className='bg-blue-500 hover:bg-blue-400 text-white p-2 rounded mr-2 hidden' 
+                            onClick={handlePreviousPage}
+                        >
+                        Previous
+                        </button> 
+                    :
+                        <button 
+                            className='bg-blue-500 hover:bg-blue-400 text-white p-2 rounded mr-2' 
+                            onClick={handlePreviousPage}
+                        >
+                        Previous
+                        </button>      
+                    }
                     <button 
                         className='bg-blue-500 hover:bg-blue-400 text-white p-2 rounded' 
                         onClick={handleNextPage}
