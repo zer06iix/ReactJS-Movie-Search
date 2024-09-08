@@ -4,7 +4,7 @@ export default function SearchButton({handleSearch}){
         <div>
             <button 
                 onClick={handleSearch} 
-                className={`bg-black text-white rounded p-2 ml-2 hover:bg-gray-700`}
+                className={`bg-green-600 text-white rounded p-2 ml-2 hover:bg-green-500`}
             >
             Search
             </button>
