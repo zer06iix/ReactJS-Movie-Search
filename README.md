@@ -1,5 +1,5 @@
 # Description
-I created a simple movie search engine application and next project is an advanced version of it, don't miss it, it's gonna be a very interesting application.
+I created a simple movie search engine application with a simple UI and the next project is an advanced version of it, don't miss it, it's gonna be a very interesting application.
 This application is fetching movies from https://omdbapi.com/ API using axios JavaScript library.
 You can search whatever movie you want and click on it to go to IMDB website for more information of that movie
 # Dependencies
