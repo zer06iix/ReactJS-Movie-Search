@@ -7,7 +7,7 @@ export default function MovieList({movies, limit}){
                     <img src={movie.Poster} alt={movie.Title} className="w-full" />  
                     <h2 className="font-semibold text-center">{movie.Title} ({movie.Year})</h2>  
                 </div>  
-            ))}  
+            ))}
         </div>   
     )
 }

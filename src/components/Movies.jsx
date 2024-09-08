@@ -18,37 +18,43 @@ export default function Movies() {
     const [searchTerm, setSearchTerm] = useState('');
     const [error, setError] = useState('');
     const [pageCount, setPageCount] = useState(1);
+    const [loading, setLoading] = useState(false)
     // const [limit, setLimit] = useState(9);
 
     // -------------FUNCTIONS-------------
     // http://www.omdbapi.com/?s=star&apikey=8f32fe9c
-    const handleSearch = async () => {
-        try{
-            const response = await axios.get(`http://www.omdbapi.com/?s=${searchTerm}&page=${pageCount}&apikey=${apiKey}`);
-            if(response.data.Response === "True"){
-                setMovies(response.data.Search);
-                setError('');
-            } else {
-                setMovies([]);
-                setError(response.data.Error);
-            }
-        } catch(err){
-            setError('An error occurred while fetching data.');
-        }
-    }
-
-    const handleNextPage = async () => {
-        setPageCount(prev => prev + 1);
-        await handleSearch();
-    }
-
-    const handlePreviousPage = async () => {  
-        if (pageCount > 1) { // Ensure pageCount doesn't go below 1  
-            const prevPage = pageCount - 1; // Decrement the page count  
-            setPageCount(prevPage); // Update the page count state  
-            await handleSearch(); // Fetch movies for the updated page  
+    const handleSearch = async (page = pageCount) => {  
+        setLoading(true); 
+        setError('');
+        try {  
+            const response = await axios.get(`http://www.omdbapi.com/?s=${searchTerm}&page=${page}&apikey=${apiKey}`);  
+            if (response.data.Response === "True") {  
+                setMovies(response.data.Search);  
+            } else {  
+                setMovies([]);  
+                setError(response.data.Error);  
+            }  
+        } catch (err) {  
+            console.error(err);  
+            setError('An error occurred while fetching data: ' + err.message);  
+        } finally {  
+            setLoading(false);
         }  
+    }
+
+    const handleNextPage = async () => {  
+        const newPageCount = pageCount + 1;  
+        setPageCount(newPageCount);
+        await handleSearch(newPageCount) 
     }  
+    
+    const handlePreviousPage = async () => {  
+        if (pageCount > 1) {   
+            const newPageCount = pageCount - 1;  
+            setPageCount(newPageCount); 
+            await handleSearch(newPageCount);  
+        }  
+    } 
 
 
     return (
@@ -60,12 +66,17 @@ export default function Movies() {
             </div>  
 
             {error && <p className="text-red-500 text-center">{error}</p>} 
-
+            {loading ? <p className="text-center">Loading...</p> : ''}
             <MovieList movies={movies} limit={limit}/>
 
             {movies.length > 0 && (  
                 <div className="flex justify-center">
-                    <PreviousButton handlePreviousPage={handlePreviousPage} pageCount={pageCount}/>
+                    {pageCount === 1
+                    ?
+                        ''
+                    :
+                        <PreviousButton handlePreviousPage={handlePreviousPage} pageCount={pageCount}/>
+                    }
                     <NextButton handleNextPage={handleNextPage}/>
                 </div>  
             )}  
