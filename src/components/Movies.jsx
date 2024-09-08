@@ -18,7 +18,7 @@ export default function Movies() {
     const [searchTerm, setSearchTerm] = useState('');
     const [error, setError] = useState('');
     const [pageCount, setPageCount] = useState(1);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
     // const [limit, setLimit] = useState(9);
 
     // -------------FUNCTIONS-------------
